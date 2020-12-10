@@ -1,0 +1,15 @@
+<div fxFlex="88">
+    <form [formGroup]="form" class="mt-1 ml-1" (ngSubmit)="onSubmit()">
+        <input class="hide" id="image_file" type="file" formControlName="image_file" accept="image/*">
+        <button type="button" mat-raised-button color="primary" color="primary">
+            <label for="image_file" class="md-button md-raised md-primary">{{this.form.get("image_file").value|| "Upload"}}</label>
+        </button>
+        <mat-form-field class="ml-1 mr-1">
+            <input matInput placeholder="Uploaded by" formControlName="uploadedby">
+        </mat-form-field>
+        <mat-form-field class="mr-1">
+            <input matInput placeholder="Notes" formControlName="notes">
+        </mat-form-field>
+        <button type="submit" [disabled]="form.invalid" mat-raised-button color="accent">Upload</button>
+    </form>
+</div>

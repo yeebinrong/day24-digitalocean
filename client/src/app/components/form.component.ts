@@ -8,6 +8,8 @@ import { ApiService } from '../api.service';
   styleUrls: ['./form.component.css']
 })
 export class FormComponent implements OnInit {
+  key = '';
+  imageURL = '';
   form:FormGroup
   constructor(private fb: FormBuilder, private apiSvc: ApiService) { }
 
@@ -18,6 +20,18 @@ export class FormComponent implements OnInit {
   onSubmit () {
     console.info(this.form.value)
     this.apiSvc.upload(this.form.value)
+    .then (k => {
+      this.key = k;
+      this.getImage(k)
+    })
+  }
+
+  async getImage(k: string) {
+    // this.imageURL = await this.apiSvc.download(k)
+    this.apiSvc.download(k)
+    .then (data => {
+      this.imageURL = "data:image/png;base64," + data;
+    })
   }
 
   private createForm () {

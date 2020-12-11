@@ -27,7 +27,6 @@ const s3 = new aws.S3({
     accessKeyId: process.env.DIGITALOCEAN_ACCESS_KEY,
     secretAccessKey: process.env.DIGITALOCEAN_SECRET_ACCESS_KEY
 })
-
 app.get('/download/:key', (req, resp) => {
     const params = {
         Bucket: 'yeebinrong',
@@ -42,7 +41,9 @@ app.get('/download/:key', (req, resp) => {
             'X-Notes':result.Metadata.notes
         })
         if (err) console.log(err, err.stack);
-        let fileData= result.Body.toString('utf-8');
+        let fileData= result.Body.toString('base64');
+        resp.type('text/plain')
+        console.info(fileData)
         resp.send(fileData);
     })
 })
